@@ -1,0 +1,40 @@
+<div class="card">
+  <p-toolbar>
+    <div class="p-toolbar-group-start">
+      <p-button
+        class="px-1"
+        icon="pi pi-bars"
+        severity="secondary"
+        [rounded]="true"
+        [text]="true"
+        [raised]="true"
+        (click)="onMenuButtonClicked()"
+      ></p-button>
+    </div>
+
+    <div class="p-toolbar-group-center">
+      <!-- <span class="top-bar-title">{{ title }}</span> -->
+    </div>
+
+    <div class="p-toolbar-group-end">
+      <p-button
+        class="px-1"
+        icon="pi pi-user"
+        severity="info"
+        [rounded]="true"
+        [text]="true"
+        [raised]="true"
+      ></p-button>
+      <p-button
+        class="px-1"
+        icon="pi pi-cog"
+        severity="help"
+        [rounded]="true"
+        [text]="true"
+        [raised]="true"
+      ></p-button>
+    </div>
+  </p-toolbar>
+</div>
+
+<app-side-bar [(display)]="displaySideBar"></app-side-bar>

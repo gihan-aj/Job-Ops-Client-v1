@@ -1,0 +1,21 @@
+<!-- <div class="flex justify-content-center flex-wrap">
+  <div class="grid">
+    <app-menu-card
+      *ngFor="let item of items"
+      [cardType]="cardType"
+      [menuItem]="item"
+    >
+    </app-menu-card>
+  </div>
+</div> -->
+
+<div class="surface-section px-4 py-8 md:px-6 lg:px-8 text-center">
+  <div class="grid justify-content-center gap-3">
+    <app-menu-card
+      *ngFor="let item of items"
+      [cardType]="cardType"
+      [menuItem]="item"
+    >
+    </app-menu-card>
+  </div>
+</div>

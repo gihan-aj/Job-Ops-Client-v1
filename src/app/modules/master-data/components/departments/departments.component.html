@@ -1,0 +1,21 @@
+<div class="flex justify-content-between flex-row">
+  <div class="font-medium text-3xl text-primary">Departments</div>
+  <button
+    title="Add a department"
+    type="button"
+    pButton
+    pRipple
+    label="Add"
+    class="p-button-outlined"
+    icon="pi pi-plus"
+    severity="info"
+  ></button>
+</div>
+<!-- <div class="flex align-items-start justify-content-between flex-row"></div> -->
+<div class="flex justify-content-center flex-row mt-4">
+  <app-table
+    [loadingInProgress]="loadingInProgress"
+    [data]="departments"
+    [headers]="headers"
+  ></app-table>
+</div>

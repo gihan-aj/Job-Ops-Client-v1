@@ -1,0 +1,15 @@
+<p-sidebar
+  [(visible)]="display"
+  position="left"
+  (visibleChange)="onDisplayChanged()"
+>
+  <!-- <ng-template pTemplate="header">Menu</ng-template> -->
+  <ng-template pTemplate="content">
+    <app-menu-card
+      *ngFor="let item of items"
+      [cardType]="cardType"
+      [menuItem]="item"
+      (menuItemClicked)="onMenuItemClicked()"
+    ></app-menu-card>
+  </ng-template>
+</p-sidebar>

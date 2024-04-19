@@ -1,0 +1,108 @@
+<div *ngIf="loadingInProgress">
+  <div class="flex align-content-center">
+    <i class="pi pi-spin pi-spinner loading-spinner"></i>
+  </div>
+</div>
+<div *ngIf="!loadingInProgress" class="grid">
+  <div class="col-12">
+    <div class="flex align-content-center">
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input pInputText placeholder="Search" />
+      </span>
+    </div>
+  </div>
+  <div class="col-12">
+    <p-table
+      dataKey="id"
+      [columns]="headers"
+      [value]="data"
+      [(selection)]="selectedDataArray"
+      [tableStyle]="{ 'min-width': '25rem' }"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th style="width: 4rem">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+          <th *ngFor="let header of headers">
+            {{ header | capitalizeFirstLetter }}
+          </th>
+          <th></th>
+        </tr>
+      </ng-template>
+
+      <ng-template
+        pTemplate="body"
+        let-rowData
+        let-ri="rowIndex"
+        let-columns="headers"
+      >
+        <tr>
+          <td>
+            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+          </td>
+          <td *ngFor="let header of headers">{{ rowData[header] }}</td>
+          <td style="width: 10rem">
+            <button
+              title="Edit"
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-pen-to-square"
+              severity="warning"
+              (click)="onRowEditInit(rowData)"
+              class="p-button-rounded p-button-text"
+            ></button>
+            <button
+              title="Delete"
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-trash"
+              severity="danger"
+              (click)="onRowDeleteInit(rowData)"
+              class="p-button-rounded p-button-text"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <div class="col-6">
+    <div class="flex justify-content-start gap-2">
+      <button
+        icon="pi pi-check pr-2"
+        pButton
+        pRipple
+        severity="info"
+        [disabled]="selectedDataArray.length === 0"
+      >
+        Activate
+      </button>
+      <button
+        icon="pi pi-times pr-2"
+        pButton
+        pRipple
+        severity="warning"
+        [disabled]="selectedDataArray.length === 0"
+      >
+        Deactivate
+      </button>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="flex justify-content-end">
+      <button
+        icon="pi pi-trash pr-2"
+        pButton
+        pRipple
+        severity="danger"
+        [disabled]="selectedDataArray.length === 0"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>

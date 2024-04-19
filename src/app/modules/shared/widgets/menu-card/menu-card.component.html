@@ -1,0 +1,30 @@
+<div *ngIf="cardType === 'menu'">
+  <div
+    pRipple
+    class="block bg-primary-100 font-bold p-4 border-round mb-3 shadow-2 cursor-pointer"
+    (click)="navigateToPage()"
+  >
+    <div class="flex align-items-baseline align-items-start gap-3">
+      <i class="pi {{ menuItem.icon }}"></i>
+      {{ menuItem.label }}
+    </div>
+  </div>
+</div>
+
+<div *ngIf="cardType === 'page'">
+  <div class="col navigation-card">
+    <span
+      pRipple
+      class="icon-card p-3 shadow-2 mb-3 inline-block surface-card cursor-pointer"
+      (click)="navigateToPage()"
+    >
+      <i class="pi {{ menuItem.icon }} text-4xl text-primary "></i>
+    </span>
+
+    <div class="text-color-secondary text-xl mb-3 font-medium">
+      {{ menuItem.label }}
+    </div>
+
+    <!-- <span class="text-700 line-height-3">{{menuItem.fragment}}</span> -->
+  </div>
+</div>
