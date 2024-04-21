@@ -15,7 +15,11 @@
 <div class="flex justify-content-center flex-row mt-4">
   <app-table
     [loadingInProgress]="loadingInProgress"
+    [tableOptions]="tableOptions"
     [data]="departments"
     [headers]="headers"
+    [totalDataCount]="dataCount"
+    [paginationParams]="paginationParams"
+    (pageChanged)="onPageChange($event)"
   ></app-table>
 </div>

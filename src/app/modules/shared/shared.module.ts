@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuCardComponent } from './widgets/menu-card/menu-card.component';
 import { TableModule } from 'primeng/table';
+import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
@@ -13,6 +14,7 @@ import { CapitalizeFirstLetterPipe } from '../../core/pipes/capitalize-first-let
   imports: [
     CommonModule,
     TableModule,
+    PaginatorModule,
     InputTextModule,
     ButtonModule,
     RippleModule,

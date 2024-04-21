@@ -22,13 +22,22 @@
     >
       <ng-template pTemplate="header" let-columns>
         <tr>
-          <th style="width: 4rem">
+          <th *ngIf="allowCheckBox" style="width: 4rem">
             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
           </th>
+
           <th *ngFor="let header of headers">
             {{ header | capitalizeFirstLetter }}
           </th>
-          <th></th>
+
+          <th
+            *ngIf="
+              allowEditRow ||
+              allowDeleteRow ||
+              allowActivateRow ||
+              allowDeactivateRow
+            "
+          ></th>
         </tr>
       </ng-template>
 
@@ -39,40 +48,86 @@
         let-columns="headers"
       >
         <tr>
-          <td>
+          <td *ngIf="allowCheckBox">
             <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
           </td>
+
           <td *ngFor="let header of headers">{{ rowData[header] }}</td>
-          <td style="width: 10rem">
-            <button
-              title="Edit"
-              pButton
-              pRipple
-              type="button"
-              icon="pi pi-pen-to-square"
-              severity="warning"
-              (click)="onRowEditInit(rowData)"
-              class="p-button-rounded p-button-text"
-            ></button>
-            <button
-              title="Delete"
-              pButton
-              pRipple
-              type="button"
-              icon="pi pi-trash"
-              severity="danger"
-              (click)="onRowDeleteInit(rowData)"
-              class="p-button-rounded p-button-text"
-            ></button>
+
+          <td
+            *ngIf="
+              allowEditRow ||
+              allowDeleteRow ||
+              allowActivateRow ||
+              allowDeactivateRow
+            "
+            style="width: 15rem"
+          >
+            <div class="flex justify-content-center flex-row gap-2">
+              <button
+                *ngIf="allowActivateRow"
+                [rounded]="true"
+                [outlined]="true"
+                size="small"
+                title="Activate"
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-check"
+                severity="info"
+                (click)="onRowEditInit(rowData)"
+              ></button>
+              <button
+                *ngIf="allowDeactivateRow"
+                [rounded]="true"
+                [outlined]="true"
+                size="small"
+                title="Deactivate"
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-times"
+                severity="warning"
+                (click)="onRowEditInit(rowData)"
+              ></button>
+              <button
+                *ngIf="allowEditRow"
+                [rounded]="true"
+                [outlined]="true"
+                size="small"
+                title="Edit"
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-pen-to-square"
+                severity="warning"
+                (click)="onRowEditInit(rowData)"
+              ></button>
+              <button
+                *ngIf="allowDeleteRow"
+                [rounded]="true"
+                [outlined]="true"
+                size="small"
+                title="Delete"
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-trash"
+                severity="danger"
+                (click)="onRowDeleteInit(rowData)"
+              ></button>
+            </div>
           </td>
         </tr>
       </ng-template>
     </p-table>
   </div>
 
-  <div class="col-6">
+  <div *ngIf="allowCheckBox" class="col-6">
     <div class="flex justify-content-start gap-2">
       <button
+        *ngIf="allowActivateMultiple"
+        [outlined]="true"
         icon="pi pi-check pr-2"
         pButton
         pRipple
@@ -82,6 +137,8 @@
         Activate
       </button>
       <button
+        *ngIf="allowDeactivateMultiple"
+        [outlined]="true"
         icon="pi pi-times pr-2"
         pButton
         pRipple
@@ -92,9 +149,11 @@
       </button>
     </div>
   </div>
-  <div class="col-6">
+  <div *ngIf="allowCheckBox" class="col-6">
     <div class="flex justify-content-end">
       <button
+        *ngIf="allowDeleteMultiple"
+        [outlined]="true"
         icon="pi pi-trash pr-2"
         pButton
         pRipple
@@ -104,5 +163,13 @@
         Delete
       </button>
     </div>
+  </div>
+  <div class="col-12">
+    <p-paginator
+      (onPageChange)="onPageChange($event)"
+      [rows]="paginationParams.pageSize"
+      [totalRecords]="totalDataCount"
+      [rowsPerPageOptions]="[5, 10, 15]"
+    ></p-paginator>
   </div>
 </div>
