@@ -5,6 +5,7 @@ import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { TagModule } from 'primeng/tag';
 import { RippleModule } from 'primeng/ripple';
 import { TableComponent } from './widgets/table/table.component';
 import { CapitalizeFirstLetterPipe } from '../../core/pipes/capitalize-first-letter.pipe';
@@ -17,6 +18,7 @@ import { CapitalizeFirstLetterPipe } from '../../core/pipes/capitalize-first-let
     PaginatorModule,
     InputTextModule,
     ButtonModule,
+    TagModule,
     RippleModule,
     CapitalizeFirstLetterPipe,
   ],

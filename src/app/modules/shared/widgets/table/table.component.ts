@@ -13,7 +13,6 @@ export class TableComponent {
   constructor(private primengConfig: PrimeNGConfig) {}
 
   @Input() loadingInProgress: boolean = true;
-  @Output() dataUpdated = new EventEmitter<boolean>();
 
   @Input() tableOptions!: TableOptions;
 
@@ -25,35 +24,28 @@ export class TableComponent {
     page: 1,
     pageSize: 5,
   };
+
   @Output() pageChanged = new EventEmitter<PaginationParams>();
+  @Output() onEdit = new EventEmitter();
+  @Output() onActivate = new EventEmitter();
+  @Output() onDeactivate = new EventEmitter();
+  @Output() onDelete = new EventEmitter();
 
   selectedDataArray: any[] = [];
 
   allowCheckBox: boolean = false;
-
   allowEditRow: boolean = false;
   allowDeleteRow: boolean = false;
-  allowActivateRow: boolean = false;
-  allowDeactivateRow: boolean = false;
-
-  allowEditMultiple: boolean = false;
-  allowDeleteMultiple: boolean = false;
-  allowActivateMultiple: boolean = false;
-  allowDeactivateMultiple: boolean = false;
+  allowActivationAndDeactivation: boolean = false;
 
   ngOnInit() {
     this.primengConfig.ripple = true;
 
     this.allowCheckBox = this.tableOptions.allowCheckBox;
-
     this.allowEditRow = this.tableOptions.allowEditRow;
     this.allowDeleteRow = this.tableOptions.allowDeleteRow;
-    this.allowActivateRow = this.tableOptions.allowActivateRow;
-    this.allowDeactivateRow = this.tableOptions.allowDeactivateRow;
-
-    this.allowDeleteMultiple = this.tableOptions.allowDeleteMultiple;
-    this.allowActivateMultiple = this.tableOptions.allowActivateMultiple;
-    this.allowDeactivateMultiple = this.tableOptions.allowDeactivateMultiple;
+    this.allowActivationAndDeactivation =
+      this.tableOptions.allowActivationAndDeactivation;
   }
 
   onPageChange($event: PaginatorState) {
@@ -65,10 +57,29 @@ export class TableComponent {
   }
 
   onRowEditInit(rowData: any) {
-    console.log(rowData);
-    console.log(this.selectedDataArray);
+    this.onEdit.emit(rowData);
   }
   onRowDeleteInit(rowData: any) {
-    console.log(rowData.id);
+    this.onDelete.emit([rowData]);
+  }
+
+  onRowActivate(rowData: any) {
+    this.onActivate.emit([rowData]);
+  }
+
+  onRowDeactivate(rowData: any) {
+    this.onDeactivate.emit([rowData]);
+  }
+
+  onBulkActivate() {
+    this.onActivate.emit(this.selectedDataArray);
+  }
+
+  onBulkDeactivate() {
+    this.onDeactivate.emit(this.selectedDataArray);
+  }
+
+  onBulkDelete() {
+    this.onDelete.emit(this.selectedDataArray);
   }
 }

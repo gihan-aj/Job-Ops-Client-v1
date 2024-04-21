@@ -6,9 +6,9 @@
     pButton
     pRipple
     label="Add"
-    class="p-button-outlined"
+    class="p-button-rounded"
     icon="pi pi-plus"
-    severity="info"
+    severity="primary"
   ></button>
 </div>
 <!-- <div class="flex align-items-start justify-content-between flex-row"></div> -->
@@ -21,5 +21,9 @@
     [totalDataCount]="dataCount"
     [paginationParams]="paginationParams"
     (pageChanged)="onPageChange($event)"
+    (onEdit)="onEdit($event)"
+    (onDelete)="onDelete($event)"
+    (onActivate)="onActivate($event)"
+    (onDeactivate)="onDeactivate($event)"
   ></app-table>
 </div>

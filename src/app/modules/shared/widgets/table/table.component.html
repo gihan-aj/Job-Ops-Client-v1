@@ -5,7 +5,7 @@
 </div>
 <div *ngIf="!loadingInProgress" class="grid">
   <div class="col-12">
-    <div class="flex align-content-center">
+    <div class="flex justify-content-center flex-row gap-2">
       <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
         <input pInputText placeholder="Search" />
@@ -30,12 +30,11 @@
             {{ header | capitalizeFirstLetter }}
           </th>
 
+          <th *ngIf="allowActivationAndDeactivation">Status</th>
+
           <th
             *ngIf="
-              allowEditRow ||
-              allowDeleteRow ||
-              allowActivateRow ||
-              allowDeactivateRow
+              allowEditRow || allowDeleteRow || allowActivationAndDeactivation
             "
           ></th>
         </tr>
@@ -54,60 +53,57 @@
 
           <td *ngFor="let header of headers">{{ rowData[header] }}</td>
 
+          <td *ngIf="allowActivationAndDeactivation">
+            <p-tag
+              [value]="rowData.status ? 'Active' : 'Inactive'"
+              [severity]="rowData.status ? 'success' : 'warning'"
+              [rounded]="true"
+            ></p-tag>
+          </td>
+
           <td
             *ngIf="
-              allowEditRow ||
-              allowDeleteRow ||
-              allowActivateRow ||
-              allowDeactivateRow
+              allowEditRow || allowDeleteRow || allowActivationAndDeactivation
             "
             style="width: 15rem"
           >
             <div class="flex justify-content-center flex-row gap-2">
               <button
-                *ngIf="allowActivateRow"
+                *ngIf="allowActivationAndDeactivation && !rowData.status"
                 [rounded]="true"
-                [outlined]="true"
-                size="small"
                 title="Activate"
                 pButton
                 pRipple
                 type="button"
                 icon="pi pi-check"
-                severity="info"
-                (click)="onRowEditInit(rowData)"
+                severity="success"
+                (click)="onRowActivate(rowData)"
               ></button>
               <button
-                *ngIf="allowDeactivateRow"
+                *ngIf="allowActivationAndDeactivation && rowData.status"
                 [rounded]="true"
-                [outlined]="true"
-                size="small"
                 title="Deactivate"
                 pButton
                 pRipple
                 type="button"
                 icon="pi pi-times"
                 severity="warning"
-                (click)="onRowEditInit(rowData)"
+                (click)="onRowDeactivate(rowData)"
               ></button>
               <button
                 *ngIf="allowEditRow"
                 [rounded]="true"
-                [outlined]="true"
-                size="small"
                 title="Edit"
                 pButton
                 pRipple
                 type="button"
                 icon="pi pi-pen-to-square"
-                severity="warning"
+                severity="info"
                 (click)="onRowEditInit(rowData)"
               ></button>
               <button
                 *ngIf="allowDeleteRow"
                 [rounded]="true"
-                [outlined]="true"
-                size="small"
                 title="Delete"
                 pButton
                 pRipple
@@ -126,24 +122,26 @@
   <div *ngIf="allowCheckBox" class="col-6">
     <div class="flex justify-content-start gap-2">
       <button
-        *ngIf="allowActivateMultiple"
-        [outlined]="true"
+        *ngIf="allowActivationAndDeactivation || allowCheckBox"
+        [rounded]="true"
         icon="pi pi-check pr-2"
         pButton
         pRipple
-        severity="info"
+        severity="success"
         [disabled]="selectedDataArray.length === 0"
+        (click)="onBulkActivate()"
       >
         Activate
       </button>
       <button
-        *ngIf="allowDeactivateMultiple"
-        [outlined]="true"
+        *ngIf="allowActivationAndDeactivation || allowCheckBox"
+        [rounded]="true"
         icon="pi pi-times pr-2"
         pButton
         pRipple
         severity="warning"
         [disabled]="selectedDataArray.length === 0"
+        (click)="onBulkDeactivate()"
       >
         Deactivate
       </button>
@@ -152,13 +150,14 @@
   <div *ngIf="allowCheckBox" class="col-6">
     <div class="flex justify-content-end">
       <button
-        *ngIf="allowDeleteMultiple"
-        [outlined]="true"
+        *ngIf="allowCheckBox || allowDeleteRow"
+        [rounded]="true"
         icon="pi pi-trash pr-2"
         pButton
         pRipple
         severity="danger"
         [disabled]="selectedDataArray.length === 0"
+        (click)="onBulkDelete()"
       >
         Delete
       </button>

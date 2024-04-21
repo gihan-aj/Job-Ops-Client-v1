@@ -6,7 +6,7 @@ import { TableOptions } from '../../../shared/models/table-options';
 import { PrimeNGConfig } from 'primeng/api';
 import { PaginationParams } from '../../../../core/models/pagination-params';
 
-const _headers: string[] = ['id', 'name', 'status'];
+const _headers: string[] = ['id', 'name'];
 const _pageSize: number = 5;
 
 @Component({
@@ -50,16 +50,28 @@ export class DepartmentsComponent {
     this.tableOptions.allowCheckBox = true;
     this.tableOptions.allowEditRow = true;
     this.tableOptions.allowDeleteRow = true;
-    this.tableOptions.allowActivateRow = true;
-    this.tableOptions.allowDeactivateRow = true;
-    this.tableOptions.allowActivateMultiple = true;
-    this.tableOptions.allowDeactivateMultiple = true;
-    this.tableOptions.allowDeleteMultiple = true;
+    this.tableOptions.allowActivationAndDeactivation = true;
   }
 
   onPageChange($event: PaginationParams) {
     console.log($event);
     this.fetchDepartments($event.page, $event.pageSize);
+  }
+
+  onEdit(rowData: any) {
+    console.log(rowData);
+  }
+
+  onDelete(dataArray: any) {
+    console.log(dataArray);
+  }
+
+  onActivate(dataArray: any) {
+    console.log(dataArray);
+  }
+
+  onDeactivate(dataArray: any) {
+    console.log(dataArray);
   }
 
   fetchDepartments(page: number, pageSize: number) {
