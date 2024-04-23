@@ -10,9 +10,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { RippleModule } from 'primeng/ripple';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 import { CapitalizeFirstLetterPipe } from '../../core/pipes/capitalize-first-letter.pipe';
-import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [MenuCardComponent, TableComponent],
@@ -27,6 +27,6 @@ import { MessageService } from 'primeng/api';
     CapitalizeFirstLetterPipe,
   ],
   exports: [MenuCardComponent, TableComponent],
-  providers: [MessageService],
+  providers: [MessageService, ConfirmationService],
 })
 export class SharedModule {}

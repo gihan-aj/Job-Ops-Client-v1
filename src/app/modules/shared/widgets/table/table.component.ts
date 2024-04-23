@@ -55,7 +55,6 @@ export class TableComponent {
   }
 
   onPageChange(paginationState: PaginatorState) {
-    console.log('Table Component: ', paginationState);
     if (paginationState.first !== undefined) {
       this.pageEvent.first = paginationState.first;
     }

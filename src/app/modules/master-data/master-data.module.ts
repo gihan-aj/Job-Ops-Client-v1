@@ -10,7 +10,9 @@ import { ToastMessageService } from '../shared/services/toast-message.service';
 
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { ConfirmationService } from 'primeng/api';
 
 @NgModule({
   declarations: [MasterDataComponent, DepartmentsComponent],
@@ -20,8 +22,9 @@ import { ToastModule } from 'primeng/toast';
     SharedModule,
     TableModule,
     ButtonModule,
+    ConfirmDialogModule,
     ToastModule,
   ],
-  providers: [ToastMessageService],
+  providers: [ToastMessageService, ConfirmationService],
 })
 export class MasterDataModule {}
