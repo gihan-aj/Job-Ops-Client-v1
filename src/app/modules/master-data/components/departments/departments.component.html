@@ -15,11 +15,13 @@
 <div class="flex justify-content-center flex-row mt-4">
   <app-table
     [loadingInProgress]="loadingInProgress"
-    [tableOptions]="tableOptions"
-    [data]="departments"
     [headers]="headers"
+    [data]="departments"
+    [tableOptions]="tableOptions"
     [totalDataCount]="dataCount"
-    [paginationParams]="paginationParams"
+    [page]="page"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
     (pageChanged)="onPageChange($event)"
     (onEdit)="onEdit($event)"
     (onDelete)="onDelete($event)"
@@ -27,3 +29,5 @@
     (onDeactivate)="onDeactivate($event)"
   ></app-table>
 </div>
+
+<p-toast></p-toast>

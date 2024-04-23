@@ -4,31 +4,76 @@ import { PaginationParams } from '../../../core/models/pagination-params';
 import { Observable } from 'rxjs';
 import { GetResponse } from '../../../core/models/get-response';
 import { Department } from '../models/department';
+import { AppSettingsService } from '../../../core/services/app-settings.service';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DepartmentsService {
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private appSettingsService: AppSettingsService
+  ) {}
+
+  user: number = this.appSettingsService.user;
+  baseUrl: string = this.appSettingsService.baseUrl;
 
   getDepartments = (
-    url: string,
-    params: PaginationParams
-  ): Observable<GetResponse<Department>> =>
-    this.apiService.get(url, {
-      params,
-      responseType: 'json',
-    });
+    page: number,
+    pageSize: number
+  ): Observable<GetResponse<Department>> => {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('page', page);
+    queryParams = queryParams.append('pageSize', pageSize);
 
-  addDepartment = (url: string, body: Department): Observable<any> => {
-    return this.apiService.post(url, body, {});
+    const url: string = `${this.baseUrl}departments`;
+
+    return this.apiService.get(url, { params: queryParams });
   };
 
-  editDepartment = (url: string, body: Department): Observable<any> => {
-    return this.apiService.put(url, body, {});
+  addDepartment = (body: Department): Observable<Department> => {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('user', this.user);
+
+    const url: string = `${this.baseUrl}departments`;
+
+    return this.apiService.post(url, body, { params: queryParams });
   };
 
-  deleteDepartment = (url: string, body: Department): Observable<any> => {
-    return this.apiService.put(url, body, {});
+  editDepartment = (body: Department): Observable<any> => {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('user', this.user);
+
+    const url = `${this.baseUrl}departments/update`;
+
+    return this.apiService.put(url, body, { params: queryParams });
+  };
+
+  deleteDepartments = (body: string[]): Observable<any> => {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('user', this.user);
+
+    const url: string = `${this.baseUrl}departments/bulk-delete`;
+
+    return this.apiService.put(url, body, { params: queryParams });
+  };
+
+  activateDepartments = (body: string[]): Observable<any> => {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('user', this.user);
+
+    const url: string = `${this.baseUrl}departments/bulk-activate`;
+
+    return this.apiService.put(url, body, { params: queryParams });
+  };
+
+  deactivateDepartments = (body: string[]): Observable<any> => {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('user', this.user);
+
+    const url: string = `${this.baseUrl}departments/bulk-deactivate`;
+
+    return this.apiService.put(url, body, { params: queryParams });
   };
 }

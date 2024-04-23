@@ -3,6 +3,7 @@ import { TableOptions } from '../../models/table-options';
 import { PrimeNGConfig } from 'primeng/api';
 import { PaginatorState } from 'primeng/paginator';
 import { PaginationParams } from '../../../../core/models/pagination-params';
+import { PageEvent } from '../../models/page-event';
 
 @Component({
   selector: 'app-table',
@@ -14,24 +15,29 @@ export class TableComponent {
 
   @Input() loadingInProgress: boolean = true;
 
-  @Input() tableOptions!: TableOptions;
-
-  @Input() data: any[] = [];
   @Input() headers: string[] = [];
+  @Input() data: any[] = [];
+
+  @Input() tableOptions!: TableOptions;
   @Input() totalDataCount: number = 0;
 
-  @Input() paginationParams: PaginationParams = {
-    page: 1,
-    pageSize: 5,
-  };
+  @Input() page!: number;
+  @Input() pageSize!: number;
+  @Input() pageSizeOptions: number[] = [5, 10, 15];
 
-  @Output() pageChanged = new EventEmitter<PaginationParams>();
+  @Output() pageChanged = new EventEmitter<PageEvent>();
   @Output() onEdit = new EventEmitter();
   @Output() onActivate = new EventEmitter();
   @Output() onDeactivate = new EventEmitter();
   @Output() onDelete = new EventEmitter();
 
   selectedDataArray: any[] = [];
+  pageEvent: PageEvent = {
+    first: 0,
+    page: 0,
+    pageCount: 1,
+    rows: 5,
+  };
 
   allowCheckBox: boolean = false;
   allowEditRow: boolean = false;
@@ -48,12 +54,22 @@ export class TableComponent {
       this.tableOptions.allowActivationAndDeactivation;
   }
 
-  onPageChange($event: PaginatorState) {
-    console.log($event);
-    if ($event.page !== undefined) this.paginationParams.page = $event.page + 1;
-    if ($event.rows !== undefined) this.paginationParams.pageSize = $event.rows;
+  onPageChange(paginationState: PaginatorState) {
+    console.log('Table Component: ', paginationState);
+    if (paginationState.first !== undefined) {
+      this.pageEvent.first = paginationState.first;
+    }
+    if (paginationState.page !== undefined) {
+      this.pageEvent.page = paginationState.page + 1;
+    }
+    if (paginationState.pageCount !== undefined) {
+      this.pageEvent.pageCount = paginationState.pageCount;
+    }
+    if (paginationState.rows !== undefined) {
+      this.pageEvent.rows = paginationState.rows;
+    }
 
-    this.pageChanged.emit(this.paginationParams);
+    this.pageChanged.emit(this.pageEvent);
   }
 
   onRowEditInit(rowData: any) {
