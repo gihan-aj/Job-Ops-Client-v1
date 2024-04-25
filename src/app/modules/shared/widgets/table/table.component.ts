@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, Output, output } from '@angular/core';
 import { TableOptions } from '../../models/table-options';
 import { PrimeNGConfig } from 'primeng/api';
 import { PaginatorState } from 'primeng/paginator';
-import { PaginationParams } from '../../../../core/models/pagination-params';
 import { PageEvent } from '../../models/page-event';
 
 @Component({
@@ -52,6 +51,8 @@ export class TableComponent {
     this.allowDeleteRow = this.tableOptions.allowDeleteRow;
     this.allowActivationAndDeactivation =
       this.tableOptions.allowActivationAndDeactivation;
+
+    this.selectedDataArray = [];
   }
 
   onPageChange(paginationState: PaginatorState) {

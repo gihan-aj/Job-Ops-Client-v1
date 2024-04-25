@@ -13,7 +13,18 @@
   ></button>
 </div>
 <!-- <div class="flex align-items-start justify-content-between flex-row"></div> -->
-<div class="flex justify-content-center flex-row mt-4">
+<div
+  *ngIf="loadingInProgress"
+  class="flex justify-content-center flex-row mt-4"
+>
+  <div class="flex align-content-center">
+    <i class="pi pi-spin pi-spinner loading-spinner"></i>
+  </div>
+</div>
+<div
+  *ngIf="!loadingInProgress"
+  class="flex justify-content-center flex-row mt-4"
+>
   <app-table
     [loadingInProgress]="loadingInProgress"
     [headers]="headers"
@@ -31,5 +42,25 @@
   ></app-table>
 </div>
 
+<!-- Confirmation dialog -->
 <p-confirmDialog></p-confirmDialog>
+
+<!-- Toast message -->
 <p-toast></p-toast>
+
+<!-- Add popup -->
+<app-departments-popup
+  [(display)]="displayAddPopup"
+  header="Add Department"
+  popupType="addNew"
+  (confirm)="addDepartment($event)"
+></app-departments-popup>
+
+<!-- Edit department popup-->
+<app-departments-popup
+  [department]="department"
+  [(display)]="displayEditPopup"
+  header="Edit Department"
+  popupType="edit"
+  (confirm)="editDepartment($event)"
+></app-departments-popup>

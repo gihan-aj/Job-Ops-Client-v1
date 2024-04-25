@@ -13,11 +13,13 @@ import { RippleModule } from 'primeng/ripple';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
 import { CapitalizeFirstLetterPipe } from '../../core/pipes/capitalize-first-letter.pipe';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [MenuCardComponent, TableComponent],
   imports: [
     CommonModule,
+    FormsModule,
     TableModule,
     PaginatorModule,
     InputTextModule,

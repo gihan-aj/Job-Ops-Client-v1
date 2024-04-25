@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+
+import { DepartmentsPopupComponent } from './departments-popup/departments-popup.component';
 
 import { DepartmentsService } from '../../services/departments.service';
 import { AppSettingsService } from '../../../../core/services/app-settings.service';
 import { ToastMessageService } from '../../../shared/services/toast-message.service';
 
-import { ConfirmationService, PrimeNGConfig } from 'primeng/api';
+import { ConfirmationService, Footer, PrimeNGConfig } from 'primeng/api';
 
 import { GetResponse } from '../../../../core/models/get-response';
 import { Department } from '../../models/department';
@@ -18,7 +20,7 @@ const _headers: string[] = ['id', 'name'];
   templateUrl: './departments.component.html',
   styleUrl: './departments.component.scss',
 })
-export class DepartmentsComponent {
+export class DepartmentsComponent implements OnDestroy {
   constructor(
     private primengConfig: PrimeNGConfig,
     private appSettingsService: AppSettingsService,
@@ -44,7 +46,16 @@ export class DepartmentsComponent {
 
   // Data
   departments: Department[] = [];
+  department: Department = {
+    id: '',
+    name: '',
+    status: true,
+  };
   dataCount: number = 0;
+
+  // Popup
+  displayAddPopup: boolean = false;
+  displayEditPopup: boolean = false;
 
   ngOnInit() {
     this.primengConfig.ripple = true;
@@ -58,6 +69,8 @@ export class DepartmentsComponent {
 
     this.fetchDepartments(this.page, this.pageSize);
   }
+
+  ngOnDestroy() {}
 
   setTableOptions() {
     this.tableOptions.allowCheckBox = true;
@@ -76,6 +89,9 @@ export class DepartmentsComponent {
   onEdit(rowData: Event) {
     console.log(rowData);
 
+    this.department = rowData as unknown as Department;
+    console.log(this.department);
+
     this.confirmationService.confirm({
       target: rowData.target as EventTarget,
       message: 'Are you sure that you want to edit this record?',
@@ -84,7 +100,9 @@ export class DepartmentsComponent {
       acceptIcon: 'none',
       rejectIcon: 'none',
       rejectButtonStyleClass: 'p-button-text',
-      accept: () => {},
+      accept: () => {
+        this.displayEditPopup = true;
+      },
       reject: () => {
         this.toastMessageService.showWarn('Edit', 'Editing canceled', 3000);
       },
@@ -182,7 +200,26 @@ export class DepartmentsComponent {
   }
 
   onAdd() {
-    this.loadingInProgress = !this.loadingInProgress;
+    this.displayAddPopup = true;
+    // this.ref = this.dialogService.open(DepartmentsPopupComponent, {
+    //   header: 'Add a Department',
+    //   width: '50vm',
+    //   modal: true,
+    //   contentStyle: { overflow: 'auto' },
+    //   breakpoints: {
+    //     '960px': '75vw',
+    //     '640px': '90vw',
+    //   },
+    //   templates: {
+    //     footer: Footer,
+    //   },
+    // });
+    // this.ref.onClose.subscribe((department: Department) => {
+    //   console.log('Popup closed');
+    //   if (department) {
+    //     this.addDepartment(department);
+    //   }
+    // });
   }
 
   fetchDepartments(page: number, pageSize: number) {
@@ -209,6 +246,7 @@ export class DepartmentsComponent {
   }
 
   addDepartment(department: Department) {
+    console.log(department);
     this.departmentService.addDepartment(department).subscribe({
       next: (response) => {
         console.log('Add depaertment: ', response);
@@ -234,6 +272,7 @@ export class DepartmentsComponent {
   }
 
   editDepartment(department: Department) {
+    console.log(department);
     this.departmentService.editDepartment(department).subscribe({
       next: (response) => {
         console.log('Edit: ', response);
@@ -244,6 +283,7 @@ export class DepartmentsComponent {
           3000
         );
 
+        this.displayEditPopup = false;
         this.fetchDepartments(this.page, this.pageSize);
       },
       error: (error) => {
