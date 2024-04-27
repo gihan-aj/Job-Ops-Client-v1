@@ -230,25 +230,6 @@ export class DepartmentsComponent implements OnDestroy {
 
   onAdd() {
     this.displayAddPopup = true;
-    // this.ref = this.dialogService.open(DepartmentsPopupComponent, {
-    //   header: 'Add a Department',
-    //   width: '50vm',
-    //   modal: true,
-    //   contentStyle: { overflow: 'auto' },
-    //   breakpoints: {
-    //     '960px': '75vw',
-    //     '640px': '90vw',
-    //   },
-    //   templates: {
-    //     footer: Footer,
-    //   },
-    // });
-    // this.ref.onClose.subscribe((department: Department) => {
-    //   console.log('Popup closed');
-    //   if (department) {
-    //     this.addDepartment(department);
-    //   }
-    // });
   }
 
   fetchDepartments(page: number, pageSize: number) {
