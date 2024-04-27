@@ -62,7 +62,7 @@
 <app-departments-popup
   [department]="department"
   [(display)]="displayEditPopup"
-  header="Edit Department"
+  header="Edit Department ({{ department.id }})"
   popupType="edit"
   (confirm)="editDepartment($event)"
 ></app-departments-popup>

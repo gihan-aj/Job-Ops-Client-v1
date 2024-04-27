@@ -9,7 +9,7 @@
   [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
 >
   <div class="grid" [formGroup]="departmentForm">
-    <div class="col-6">
+    <div class="col-6" *ngIf="popupType === 'addNew'">
       <span class="flex flex-column gap-2">
         <label for="id">Id</label>
         <input
@@ -23,7 +23,10 @@
       </span>
     </div>
 
-    <div class="col-6">
+    <div
+      [class.col-6]="popupType === 'addNew'"
+      [class.col-12]="popupType === 'edit'"
+    >
       <span class="flex flex-column gap-2">
         <label for="name">Name</label>
         <input
