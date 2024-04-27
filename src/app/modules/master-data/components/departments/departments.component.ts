@@ -86,6 +86,35 @@ export class DepartmentsComponent implements OnDestroy {
     this.fetchDepartments(this.page, this.pageSize);
   }
 
+  onSearch($event: string) {
+    this.loadingInProgress = true;
+
+    if ($event) {
+      this.departmentService
+        .getDepartmentsBySearch(this.page, this.pageSize, $event)
+        .subscribe({
+          next: (data: GetResponse<Department>) => {
+            if (data.dataList) this.departments = data.dataList;
+            if (data.count) this.dataCount = data.count;
+            console.log(this.departments);
+
+            this.loadingInProgress = false;
+          },
+          error: (error) => {
+            console.log(error);
+
+            this.toastMessageService.showError(
+              'Error',
+              `Data fetching failed!`,
+              5000
+            );
+          },
+        });
+    } else {
+      this.fetchDepartments(this.page, this.pageSize);
+    }
+  }
+
   onEdit(rowData: Event) {
     console.log(rowData);
 

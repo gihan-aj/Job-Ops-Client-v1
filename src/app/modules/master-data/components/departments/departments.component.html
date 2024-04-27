@@ -12,6 +12,7 @@
     (click)="onAdd()"
   ></button>
 </div>
+<app-search-bar (onSearch)="onSearch($event)"></app-search-bar>
 <!-- <div class="flex align-items-start justify-content-between flex-row"></div> -->
 <div
   *ngIf="loadingInProgress"
@@ -21,6 +22,7 @@
     <i class="pi pi-spin pi-spinner loading-spinner"></i>
   </div>
 </div>
+
 <div
   *ngIf="!loadingInProgress"
   class="flex justify-content-center flex-row mt-4"

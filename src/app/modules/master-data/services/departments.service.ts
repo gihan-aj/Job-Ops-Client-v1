@@ -32,6 +32,21 @@ export class DepartmentsService {
     return this.apiService.get(url, { params: queryParams });
   };
 
+  getDepartmentsBySearch = (
+    page: number,
+    pageSize: number,
+    searchQuery: string
+  ): Observable<GetResponse<Department>> => {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('page', page);
+    queryParams = queryParams.append('pageSize', pageSize);
+    queryParams = queryParams.append('searchQuery', searchQuery);
+
+    const url: string = `${this.baseUrl}departments/search`;
+
+    return this.apiService.get(url, { params: queryParams });
+  };
+
   addDepartment = (body: Department): Observable<Department> => {
     let queryParams = new HttpParams();
     queryParams = queryParams.append('user', this.user);

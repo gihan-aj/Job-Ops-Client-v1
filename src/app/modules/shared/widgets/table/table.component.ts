@@ -30,6 +30,8 @@ export class TableComponent {
   @Output() onDeactivate = new EventEmitter();
   @Output() onDelete = new EventEmitter();
 
+  // @Output() onSearch = new EventEmitter<string>();
+
   selectedDataArray: any[] = [];
   pageEvent: PageEvent = {
     first: 0,
@@ -42,6 +44,8 @@ export class TableComponent {
   allowEditRow: boolean = false;
   allowDeleteRow: boolean = false;
   allowActivationAndDeactivation: boolean = false;
+
+  // searchQuery!: string;
 
   ngOnInit() {
     this.primengConfig.ripple = true;
@@ -71,6 +75,10 @@ export class TableComponent {
 
     this.pageChanged.emit(this.pageEvent);
   }
+
+  // getSearchInput() {
+  //   this.onSearch.emit(this.searchQuery);
+  // }
 
   onRowEditInit(rowData: any) {
     this.onEdit.emit(rowData);

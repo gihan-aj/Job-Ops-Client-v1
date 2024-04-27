@@ -4,14 +4,19 @@
   </div>
 </div>
 <div *ngIf="!loadingInProgress" class="grid">
-  <div class="col-12">
+  <!-- <div class="col-12">
     <div class="flex justify-content-center flex-row gap-2">
       <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
-        <input pInputText placeholder="Search" />
+        <input
+          [(ngModel)]="searchQuery"
+          (input)="getSearchInput()"
+          pInputText
+          placeholder="Search"
+        />
       </span>
     </div>
-  </div>
+  </div> -->
   <div class="col-12">
     <p-table
       dataKey="id"

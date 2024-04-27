@@ -16,4 +16,12 @@ export class DataValidationService {
       return hasSpecialCharacter ? { hasSpecialCharacter: true } : null;
     };
   }
+
+  idChangeValidation(editable: boolean, value: string): ValidatorFn {
+    return (control) => {
+      return control.value !== value && editable
+        ? { idHasChanged: true }
+        : null;
+    };
+  }
 }

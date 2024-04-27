@@ -14,9 +14,10 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 
 import { CapitalizeFirstLetterPipe } from '../../core/pipes/capitalize-first-letter.pipe';
 import { FormsModule } from '@angular/forms';
+import { SearchBarComponent } from './widgets/search-bar/search-bar.component';
 
 @NgModule({
-  declarations: [MenuCardComponent, TableComponent],
+  declarations: [MenuCardComponent, TableComponent, SearchBarComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -28,7 +29,7 @@ import { FormsModule } from '@angular/forms';
     RippleModule,
     CapitalizeFirstLetterPipe,
   ],
-  exports: [MenuCardComponent, TableComponent],
+  exports: [MenuCardComponent, TableComponent, SearchBarComponent],
   providers: [MessageService, ConfirmationService],
 })
 export class SharedModule {}

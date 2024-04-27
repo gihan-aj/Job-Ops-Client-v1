@@ -39,6 +39,10 @@ export class DepartmentsPopupComponent {
       [
         Validators.required,
         this.dataValidationService.specialCharacterValidation(),
+        this.dataValidationService.idChangeValidation(
+          this.popupType === 'edit',
+          this.department.id
+        ),
       ],
     ],
     name: ['', [Validators.required]],
@@ -47,10 +51,6 @@ export class DepartmentsPopupComponent {
 
   ngOnInit() {
     this.primengConfig.ripple = true;
-
-    if (this.popupType === 'edit') {
-      this.departmentForm.get('id')?.setValue(this.department.id);
-    }
   }
 
   ngOnChanges() {
