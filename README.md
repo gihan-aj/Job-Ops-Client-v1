@@ -13,7 +13,7 @@ This Angular app is designed to work with the Job Operations Management System A
 * **Comprehensive Table Component:** A versatile table component with options for editing, deleting, activating, and deactivating individual rows. It also supports bulk actions and indicates the activation status of each row.
 * **Search Bar:** Search dynamically through data by ID or name.
 * **Pagination Bar:** Switch through pages and set different page sizes
-* **Modals:** Add, edit data from popup windows
+* **Modals:** Add, and edit data from popup windows
 * **PrimeNG and PrimeFlex:** Utilizes PrimeNG component library and PrimeFlex CSS library for building responsive and feature-rich interfaces.
 
 ## Installation
@@ -59,7 +59,8 @@ This Angular app is designed to work with the Job Operations Management System A
     (onDeactivate)="onDeactivate($event)"
   ></app-table>
   ```
-
+* **UI:**
+![Alt text](https://github.com/gihan-aj/Job-Ops-Client-v2/blob/main/public/assets/images/register.png "Department UI")
 ### PrimeNG and PrimeFlex
 * [**PrimeNG:**](https://primeng.org) Used for advanced UI components like tables, dialogs, and buttons.
 * [**PrimeFlex:**](https://primeflex.org) Used for responsive layout and styling.
