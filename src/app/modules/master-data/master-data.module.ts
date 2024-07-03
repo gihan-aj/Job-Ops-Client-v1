@@ -9,6 +9,7 @@ import { DepartmentsComponent } from './components/departments/departments.compo
 import { DepartmentsPopupComponent } from './components/departments/departments-popup/departments-popup.component';
 
 import { ToastMessageService } from '../shared/services/toast-message.service';
+import { AlertService } from '../shared/services/alert.service';
 
 import { RippleModule } from 'primeng/ripple';
 import { TableModule } from 'primeng/table';
@@ -39,6 +40,6 @@ import { ConfirmationService } from 'primeng/api';
     DialogModule,
     InputTextModule,
   ],
-  providers: [ToastMessageService, ConfirmationService],
+  providers: [ToastMessageService, ConfirmationService, AlertService],
 })
 export class MasterDataModule {}

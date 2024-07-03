@@ -12,6 +12,7 @@ import { GetResponse } from '../../../../core/models/get-response';
 import { Department } from '../../models/department';
 import { TableOptions } from '../../../shared/models/table-options';
 import { PageEvent } from '../../../shared/models/page-event';
+import { AlertService } from '../../../shared/services/alert.service';
 
 const _headers: string[] = ['id', 'name'];
 
@@ -26,7 +27,8 @@ export class DepartmentsComponent implements OnDestroy {
     private appSettingsService: AppSettingsService,
     private departmentService: DepartmentsService,
     private confirmationService: ConfirmationService,
-    private toastMessageService: ToastMessageService
+    private toastMessageService: ToastMessageService,
+    private alert: AlertService
   ) {}
 
   user!: number;
@@ -230,6 +232,7 @@ export class DepartmentsComponent implements OnDestroy {
 
   onAdd() {
     this.displayAddPopup = true;
+    // this.alert.show();
   }
 
   fetchDepartments(page: number, pageSize: number) {

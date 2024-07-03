@@ -5,6 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { MenuCardComponent } from './widgets/menu-card/menu-card.component';
 import { TableComponent } from './widgets/table/table.component';
 import { SearchBarComponent } from './widgets/search-bar/search-bar.component';
+import { AlertComponent } from './widgets/alert/alert.component';
+
+import { CapitalizeFirstLetterPipe } from '../../core/pipes/capitalize-first-letter.pipe';
 
 import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
@@ -13,13 +16,18 @@ import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { RippleModule } from 'primeng/ripple';
 import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 
 import { ConfirmationService, MessageService } from 'primeng/api';
 
-import { CapitalizeFirstLetterPipe } from '../../core/pipes/capitalize-first-letter.pipe';
-
 @NgModule({
-  declarations: [MenuCardComponent, TableComponent, SearchBarComponent],
+  declarations: [
+    MenuCardComponent,
+    TableComponent,
+    SearchBarComponent,
+    AlertComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -30,9 +38,11 @@ import { CapitalizeFirstLetterPipe } from '../../core/pipes/capitalize-first-let
     TagModule,
     RippleModule,
     DialogModule,
+    DynamicDialogModule,
+    ConfirmDialogModule,
     CapitalizeFirstLetterPipe,
   ],
   exports: [MenuCardComponent, TableComponent, SearchBarComponent],
-  providers: [MessageService, ConfirmationService],
+  providers: [MessageService, ConfirmationService, DialogService],
 })
 export class SharedModule {}
