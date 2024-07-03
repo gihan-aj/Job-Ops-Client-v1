@@ -35,6 +35,9 @@ This Angular app is designed to work with the Job Operations Management System A
 * **Add button:** Opens a form to add a new department.
 * **Table Component:** Displays a list of departments with pagination. Each row has options to edit, delete, activate, or deactivate the department.
 * **Bulk Actions:** Select multiple rows to perform bulk delete, activate, or deactivate actions.
+* **UI:**
+![Alt text](https://github.com/gihan-aj/Job-Ops-Client-v1/blob/main/src/assets/images/department.png "Department UI")
+![Alt text](https://github.com/gihan-aj/Job-Ops-Client-v1/blob/main/src/assets/images/modal-component.png "Popup")
 
 ### Table Component
 * **Edit:** Click the edit button to modify the department details.
@@ -59,8 +62,7 @@ This Angular app is designed to work with the Job Operations Management System A
     (onDeactivate)="onDeactivate($event)"
   ></app-table>
   ```
-* **UI:**
-![Alt text](https://github.com/gihan-aj/Job-Ops-Client-v2/blob/main/public/assets/images/register.png "Department UI")
+
 ### PrimeNG and PrimeFlex
 * [**PrimeNG:**](https://primeng.org) Used for advanced UI components like tables, dialogs, and buttons.
 * [**PrimeFlex:**](https://primeflex.org) Used for responsive layout and styling.
